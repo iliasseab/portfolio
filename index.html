@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Iliasse_Abouinan</title>
+    <style>
+        /* Polices modernes */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Fira+Code:wght@400;500&display=swap');
+
+        /* Palette de couleurs "Modern Dark Mode" */
+        :root {
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #94a3b8;
+            --text-white: #f8fafc;
+            --accent: #4ade80;
+            --accent-hover: #22c55e;
+            --border-color: #334155;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* EN-TÊTE : Photo + Texte alignés */
+        header {
+            padding: 4rem 2rem 2rem 2rem;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .profile-pic {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 25px rgba(74, 222, 128, 0.4);
+        }
+        
+        .header-text {
+            text-align: left;
+        }
+
+        .header-text h1 {
+            font-family: 'Fira Code', monospace;
+            color: var(--text-white);
+            margin: 0 0 8px 0;
+            font-size: 2.5rem;
+            font-weight: 500;
+        }
+        
+        .header-text h1 span {
+            color: var(--accent);
+        }
+        
+        .header-text p {
+            font-size: 1.2rem;
+            color: var(--text-white);
+            margin: 0;
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* CONTENEUR GRILLE */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1100px;
+            margin: 3rem auto;
+            padding: 0 1.5rem 3rem 1.5rem;
+            align-items: stretch;
+        }
+
+        /* Design des cartes (Sections) */
+        .section {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .section h2 {
+            font-family: 'Fira Code', monospace;
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .section p {
+            font-size: 0.95rem;
+            margin-top: 0;
+        }
+
+        /* Style spécifique pour la liste des projets */
+        .project-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .project-list li {
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+            border-left: 2px solid var(--accent);
+            padding-left: 10px;
+        }
+
+        .project-list li strong {
+            color: var(--text-white);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Liens et Contact */
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+
+        /* ----- SECTION CV ----- */
+        .cv-section {
+            grid-column: 1 / -1;
+            margin-top: 1rem;
+        }
+
+        .cv-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin-top: 1.5rem;
+        }
+
+        .cv-column {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .cv-column h3 {
+            color: var(--text-white);
+            border-bottom: 2px dashed var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* Timeline */
+        .timeline-item {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+            border-left: 2px solid var(--accent);
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background-color: var(--bg-card);
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+        }
+
+        .timeline-date {
+            font-family: 'Fira Code', monospace;
+            color: var(--accent);
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+
+        .timeline-title {
+            color: var(--text-white);
+            font-weight: 600;
+            margin: 0 0 0.3rem 0;
+            font-size: 1.05rem;
+        }
+
+        .timeline-desc {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Badges Compétences */
+        .tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background-color: rgba(74, 222, 128, 0.1);
+            color: var(--accent);
+            font-size: 0.85rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* Bouton Télécharger */
+        .btn-download {
+            display: inline-block;
+            background-color: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 2.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-download:hover {
+            background-color: var(--accent);
+            color: var(--bg-main);
+            text-decoration: none;
+            box-shadow: 0 0 15px rgba(74, 222, 128, 0.4);
+        }
+
+        /* ----- SECTION FOCUS PROJET ----- */
+        .project-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .step-card {
+            background-color: rgba(15, 23, 42, 0.4);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer; /* Indique que c'est cliquable */
+        }
+        
+        .step-card:hover {
+            border-color: var(--accent);
+            transform: scale(1.02); /* Petit effet de zoom au survol */
+        }
+
+        .step-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            object-position: top;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .step-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .step-info h3 {
+            color: var(--text-white);
+            margin: 0 0 0.8rem 0;
+            font-size: 1.05rem;
+            font-family: 'Fira Code', monospace;
+        }
+        
+        .step-info p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .step-info code {
+            background-color: var(--bg-main);
+            color: var(--accent);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9em;
+        }
+
+        /* ----- MODAL (FENÊTRE POP-UP) ----- */
+        .modal {
+            display: none; /* Caché par défaut */
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.9); /* Fond flouté sombre */
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: var(--bg-card);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto; /* Permet de scroller si le contenu est trop grand */
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: var(--text-main);
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 10;
+        }
+
+        .close-modal:hover {
+            color: var(--accent);
+        }
+
+        #modalImg {
+            width: 100%;
+            height: auto;
+            max-height: 60vh;
+            object-fit: contain; /* L'image s'affiche en entier sans être coupée */
+            background-color: #000;
+            border-bottom: 1px solid var(--border-color);
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+
+        .modal-info {
+            padding: 2rem;
+        }
+
+        .modal-info h3 {
+            color: var(--accent);
+            font-family: 'Fira Code', monospace;
+            margin-top: 0;
+            font-size: 1.4rem;
+        }
+
+        .modal-info p {
+            font-size: 1.05rem;
+            color: var(--text-white);
+            margin-bottom: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .header-text {
+                text-align: center;
+            }
+            .cv-column {
+                min-width: 100%;
+            }
+            .cv-section {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <img src="photo.png" alt="Photo d'Iliasse" class="profile-pic">
+            <div class="header-text">
+                <h1>&gt; <span>Iliasse_Abouinan</span>_</h1>
+                <p>Futur Administrateur Système<br>& Cybersécurité</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="grid-container">
+        
+        <div class="section">
+            <h2>01. À propos de moi</h2>
+            <p>Passionné par l'informatique et les infrastructures réseaux, je me prépare à intégrer une formation spécialisée.</p>
+            <p>Actuellement en apprentissage autodidacte (notamment via OpenClassrooms), je consolide mes bases techniques à travers des projets pratiques orientés système et sécurité pour être rapidement opérationnel au sein de vos équipes.</p>
+        </div>
+
+        <div class="section">
+            <h2>02. Mes Projets Pratiques</h2>
+            <ul class="project-list">
+                <li>
+                    <strong>🌐 Portfolio Web</strong>
+                    Création et hébergement de ce site (HTML/CSS, GitHub Pages).
+                </li>
+                <li>
+                    <strong>🖥️ Réseau Virtuel </strong>
+                    Déploiement d'un Homelab, configuration IP et tests de communication (Linux, SSH).
+                </li>
+                <li>
+                    <strong>🛡️ Analyse Trafic </strong>
+                    Interception de trames et analyse de protocoles avec Wireshark.
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>03. Contact</h2>
+            <p>Je suis à la recherche d'un stage pour consolider mes acquis et m'investir avec motivation au sein de votre service informatique.</p>
+            <div class="contact-info">
+                <span><strong>Email :</strong><br><a href="mailto:abouinan@hotmail.com">abouinan@hotmail.com</a></span>
+            
+            </div>
+        </div>
+
+        <div class="section cv-section">
+            <h2>04. Profil Pro & Curriculum Vitae</h2>
+            
+            <div class="cv-container">
+                <div class="cv-column">
+                    <h3>Mon Parcours & Expériences</h3>
+                    
+                    <div class="timeline-item">
+                        <span class="timeline-date">Rentrée Septembre 2026</span>
+                        <h4 class="timeline-title">Administrateur Systèmes, Réseaux et Cybersécurité</h4>
+                        <p class="timeline-desc">Intégration d'un cursus spécialisé à <strong>IRIS Campus Montpellier</strong> pour approfondir le déploiement d'infrastructures et la sécurisation des SI.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <span class="timeline-date">2025 - 2026</span>
+                        <h4 class="timeline-title">Auto-formation (OpenClassrooms)</h4>
+                        <p class="timeline-desc">Parcours Admin Système/Réseaux (en cours) et Développeur Web (2025). Compréhension de l'architecture client/serveur, fonctionnement des API et création d'interfaces.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="timeline-date">2025 - Présent</span>
+                        <h4 class="timeline-title">Expériences en Service Client (Support)</h4>
+                        <p class="timeline-desc">Agent d'accueil (Basic Fit) et Gestionnaire (Airbnb). Développement d'une forte capacité de gestion des requêtes, d'autonomie et d'application stricte des protocoles de sécurité.</p>
+                    </div>
+                </div>
+
+                <div class="cv-column">
+                    <h3>Stack Technique & Outils</h3>
+                    <div class="tags" style="margin-bottom: 2rem;">
+                        <span class="tag">Linux</span>
+                        <span class="tag">VirtualBox</span>
+                        <span class="tag">Bases TCP/IP</span>
+                        <span class="tag">Wireshark</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">HTML / CSS</span>
+                        <span class="tag">JavaScript</span>
+                    </div>
+
+                    <h3>Savoir-être & Atouts (Soft Skills)</h3>
+                    <ul class="project-list" style="border:none; padding:0;">
+                        <li style="border-left:none; padding-left:0; margin-bottom:0.5rem;"><strong>Support Utilisateur :</strong> Très à l'aise dans le contact humain, gestion des réclamations et relation client.</li>
+                        <li style="border-left:none; padding-left:0; margin-bottom:0.5rem;"><strong>Résolution de problèmes :</strong> Gestion efficace des requêtes utilisateurs et résolution rapide des incidents de premier niveau.</li>
+                        <li style="border-left:none; padding-left:0; margin-bottom:0;"><strong>Adaptabilité Technique :</strong> Proactivité dans l'apprentissage et forte capacité d'auto-formation continue.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="CV_iliasse_abouinan.pdf" class="btn-download" target="_blank" download>📄 Télécharger mon CV au format PDF</a>
+            </div>
+        </div>
+
+        <div class="section cv-section">
+            <h2>05. Focus Projet : Déploiement d'un Homelab</h2>
+            <p><strong>Objectif technique :</strong> Créer un environnement virtuel isolé pour configurer et tester la communication réseau entre deux serveurs Linux en ligne de commande (CLI), simulant l'architecture d'un réseau d'entreprise interne. <em>(Cliquez sur les cartes pour agrandir)</em></p>
+            
+            <div class="project-steps">
+                <div class="step-card">
+                    <img src="capt3.png" alt="Configuration VirtualBox Réseau Interne" class="step-img">
+                    <div class="step-info">
+                        <h3>1. Architecture & Isolation</h3>
+                        <p>Configuration de deux machines virtuelles sous Linux via l'hyperviseur VirtualBox. L'interface réseau est volontairement configurée en mode <strong>"Réseau Interne"</strong> pour créer un switch virtuel totalement isolé d'Internet.</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <img src="capt2.png" alt="Test Ping entre serveurs" class="step-img">
+                    <div class="step-info">
+                        <h3>2. Adressage IP & Connectivité</h3>
+                        <p>Attribution manuelle des adresses IP fixes dans les fichiers de configuration système (absence de serveur DHCP). Le test de communication via la commande <code>ping</code> valide le bon transit des paquets sur le réseau local.</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <img src="capt1.png" alt="Connexion SSH réussie" class="step-img">
+                    <div class="step-info">
+                        <h3>3. Accès Distant Sécurisé (SSH)</h3>
+                        <p>Simulation d'une administration à distance. Utilisation du protocole <code>SSH</code> pour prendre le contrôle du Serveur B depuis le Serveur A. Le changement de l'invite de commande confirme l'accès sécurisé à la machine cible.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section cv-section">
+            <h2>06. Focus Projet : Analyse Réseau & Interception (Wireshark)</h2>
+            <p><strong>Objectif technique :</strong> Démontrer l'importance du chiffrement des données en interceptant et en analysant le trafic réseau non sécurisé à l'aide d'un analyseur de protocole. <em>(Cliquez sur les cartes pour agrandir)</em></p>
+            
+            <div class="project-steps">
+                <div class="step-card">
+                    <img src="capt4.jpg" alt="Filtrage de trames HTTP POST sur Wireshark" class="step-img">
+                    <div class="step-info">
+                        <h3>1. Capture & Filtrage de Trames</h3>
+                        <p>Écoute du trafic réseau lors d'une authentification sur un environnement web non sécurisé (HTTP). Utilisation de requêtes de filtrage ciblées (<code>http.request.method == POST</code>) pour isoler l'envoi du formulaire de connexion parmi le bruit réseau.</p>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <img src="capt5.png" alt="Exposition d'identifiants en texte clair" class="step-img">
+                    <div class="step-info">
+                        <h3>2. Analyse du Flux TCP (Interception)</h3>
+                        <p>Reconstitution du flux TCP (Follow TCP Stream). Mise en évidence de la faille de sécurité majeure : les identifiants (utilisateur et mot de passe) transitent en clair (Plaintext) sans aucun chiffrement. <br><br><span style="border: 2px solid #ef4444; color: #f8fafc; padding: 2px 6px; border-radius: 4px; font-weight: 600; display: inline-block; background-color: rgba(239, 68, 68, 0.2);">Interception : uname=admin_iliasse&pass=Securite2026!</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <img id="modalImg" src="" alt="Image en grand">
+            <div class="modal-info">
+                <h3 id="modalTitle">Titre</h3>
+                <p id="modalDesc">Description</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Récupération des éléments du Modal
+        const modal = document.getElementById("projectModal");
+        const modalImg = document.getElementById("modalImg");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalDesc = document.getElementById("modalDesc");
+        const closeBtn = document.getElementsByClassName("close-modal")[0];
+
+        // Ajouter l'événement de clic à chaque carte "step-card"
+        const cards = document.querySelectorAll(".step-card");
+        
+        cards.forEach(card => {
+            card.addEventListener("click", function() {
+                // On récupère les données de la carte sur laquelle on a cliqué
+                const imageSrc = this.querySelector(".step-img").src;
+                const titleText = this.querySelector("h3").innerText;
+                const descHtml = this.querySelector("p").innerHTML;
+
+                // On injecte ces données dans le Modal
+                modalImg.src = imageSrc;
+                modalTitle.innerText = titleText;
+                modalDesc.innerHTML = descHtml;
+
+                // On affiche le Modal
+                modal.style.display = "flex";
+            });
+        });
+
+        // Fermer le modal quand on clique sur la croix
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Fermer le modal quand on clique n'importe où en dehors de l'image
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
